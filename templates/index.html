@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Todo App</title></head>
+<body>
+  <h1>Todo List</h1>
+  <form action="/add" method="POST">
+    <input type="text" name="task" placeholder="Enter task..." required>
+    <button type="submit">Add</button>
+  </form>
+  <ul>
+    {% for todo in todos %}
+      <li>
+        {{ todo['task'] }}
+        {% if not todo['done'] %}
+          <a href="/done/{{ todo['id'] }}">Mark Done</a>
+        {% else %}
+          <s>Done</s>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
