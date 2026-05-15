@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time, pytest
@@ -13,7 +14,10 @@ def driver():
     opts.add_argument("--headless")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-dev-shm-usage")
-    d = webdriver.Chrome(options=opts)
+    opts.add_argument("--disable-gpu")
+    opts.binary_location = "/usr/bin/chromium"
+    service = Service("/usr/bin/chromedriver")
+    d = webdriver.Chrome(service=service, options=opts)
     yield d
     d.quit()
 
